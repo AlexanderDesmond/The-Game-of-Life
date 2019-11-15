@@ -3,9 +3,9 @@ const CANVAS = document.querySelector("canvas");
 const CONTEXT = CANVAS.getContext("2d");
 
 // Set the resolution and dimensions of the canvas.
-const RESOLUTION = 40;
-CANVAS.width = 400;
-CANVAS.height = 400;
+const RESOLUTION = 5;
+CANVAS.width = 900;
+CANVAS.height = 900;
 
 // Set the number of rows and columns
 const COLUMNS = CANVAS.width / RESOLUTION;
@@ -46,7 +46,6 @@ function render(grid) {
       );
       CONTEXT.fillStyle = cell ? "black" : "white";
       CONTEXT.fill();
-      CONTEXT.stroke();
     }
   }
 }
