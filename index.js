@@ -11,6 +11,13 @@ CANVAS.height = 900;
 const COLUMNS = CANVAS.width / RESOLUTION;
 const ROWS = CANVAS.height / RESOLUTION;
 
+// Class for holding the states of a cell
+class Cell {
+  constructor() {
+    this.currentState = Math.floor(Math.random() * 2);
+  }
+}
+
 let grid = buildGrid();
 
 requestAnimationFrame(update);
@@ -26,9 +33,7 @@ function buildGrid() {
   //return new Array(COLUMNS).fill(null).map(() => new Array(ROWS).fill(0));
   return new Array(COLUMNS)
     .fill(null)
-    .map(() =>
-      new Array(ROWS).fill(null).map(() => Math.floor(Math.random() * 2))
-    );
+    .map(() => new Array(ROWS).fill(null).map(() => new Cell()));
 }
 
 // Render the grid on the canvas.
@@ -44,7 +49,7 @@ function render(grid) {
         RESOLUTION,
         RESOLUTION
       );
-      CONTEXT.fillStyle = cell ? "black" : "white";
+      CONTEXT.fillStyle = cell.currentState ? "black" : "white";
       CONTEXT.fill();
     }
   }
@@ -53,12 +58,13 @@ function render(grid) {
 // Build the next generation of the grid.
 function nextGeneration(grid) {
   // Create a copy of the grid
-  const nextGen = grid.map(arr => [...arr]);
+  //const nextGen = grid.map(arr => [...arr]);
+  const currentGen = grid.map(arr => arr.map(cell => cell.currentState));
 
   // Iterate through every cell in the grid.
-  for (let column = 0; column < grid.length; column++) {
-    for (let row = 0; row < grid[column].length; row++) {
-      const cell = grid[column][row];
+  for (let column = 0; column < currentGen.length; column++) {
+    for (let row = 0; row < currentGen[column].length; row++) {
+      const cell = currentGen[column][row];
 
       let numOfNeighbours = 0;
       // Iterate through the neighbours of the current cell.
@@ -74,7 +80,7 @@ function nextGeneration(grid) {
 
           // Check to ensure the cell is actually in the grid.
           if (x_cell >= 0 && y_cell >= 0 && x_cell < COLUMNS && y_cell < ROWS) {
-            const currentNeighbour = grid[column + i][row + j];
+            const currentNeighbour = currentGen[column + i][row + j];
 
             // Store the number of neighbours
             numOfNeighbours += currentNeighbour;
@@ -84,14 +90,14 @@ function nextGeneration(grid) {
 
       // Implement game rules:
       if (cell === 1 && numOfNeighbours < 2) {
-        nextGen[column][row] = 0; // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+        grid[column][row].currentState = 0; // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
       } else if (cell === 1 && numOfNeighbours > 3) {
-        nextGen[column][row] = 0; // Any live cell with more than three live neighbours dies, as if by overpopulation.
+        grid[column][row].currentState = 0; // Any live cell with more than three live neighbours dies, as if by overpopulation.
       } else if (cell === 0 && numOfNeighbours === 3) {
-        nextGen[column][row] = 1; // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+        grid[column][row].currentState = 1; // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
       }
     }
   }
 
-  return nextGen;
+  return grid;
 }
