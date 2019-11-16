@@ -95,6 +95,7 @@ function nextGeneration(grid) {
       }
 
       // Implement game rules:
+      /*
       if (cell === 1 && numOfNeighbours < 2) {
         grid[column][row].setState(0); // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
       } else if (cell === 1 && numOfNeighbours > 3) {
@@ -103,6 +104,24 @@ function nextGeneration(grid) {
         grid[column][row].setState(1); // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
       } else {
         grid[column][row].setState(grid[column][row].currentState); // Any live cell with two or three live neighbours lives on to the next generation.
+      }
+      */
+
+      switch (cell) {
+        case 1:
+          if (numOfNeighbours < 2) {
+            grid[column][row].setState(0); // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+          } else if (numOfNeighbours > 3) {
+            grid[column][row].setState(0); // Any live cell with more than three live neighbours dies, as if by overpopulation.
+          }
+          break;
+        case 0:
+          if (numOfNeighbours === 3) {
+            grid[column][row].setState(1); // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+          }
+          break;
+        default:
+          grid[column][row].setState(grid[column][row].currentState); // Any live cell with two or three live neighbours lives on to the next generation.
       }
     }
   }
