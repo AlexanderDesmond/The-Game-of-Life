@@ -44,6 +44,18 @@ function buildGrid() {
 
 // Render the grid on the canvas.
 function render(grid) {
+  // Find and store the
+  let maxTotal = 0;
+  for (let column = 0; column < grid.length; column++) {
+    for (let row = 0; row < grid[column].length; row++) {
+      const cell = grid[column][row];
+
+      if (cell.total > maxTotal) {
+        maxTotal = cell.total;
+      }
+    }
+  }
+
   for (let column = 0; column < grid.length; column++) {
     for (let row = 0; row < grid[column].length; row++) {
       const cell = grid[column][row];
@@ -55,7 +67,13 @@ function render(grid) {
         RESOLUTION,
         RESOLUTION
       );
-      CONTEXT.fillStyle = cell.currentState ? "black" : "white";
+      //CONTEXT.fillStyle = cell.currentState ? "black" : "white";
+
+      // For heatmap version
+      const normalised = cell.total / maxTotal;
+      const h = (1.0 - normalised) * 240;
+      CONTEXT.fillStyle = `hsl(${h}, 100%, 50%)`;
+
       CONTEXT.fill();
     }
   }
