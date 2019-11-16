@@ -15,6 +15,12 @@ const ROWS = CANVAS.height / RESOLUTION;
 class Cell {
   constructor() {
     this.currentState = Math.floor(Math.random() * 2);
+    this.total = 0;
+  }
+
+  setState(state) {
+    this.currentState = state;
+    this.total += state;
   }
 }
 
@@ -90,11 +96,13 @@ function nextGeneration(grid) {
 
       // Implement game rules:
       if (cell === 1 && numOfNeighbours < 2) {
-        grid[column][row].currentState = 0; // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+        grid[column][row].setState(0); // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
       } else if (cell === 1 && numOfNeighbours > 3) {
-        grid[column][row].currentState = 0; // Any live cell with more than three live neighbours dies, as if by overpopulation.
+        grid[column][row].setState(0); // Any live cell with more than three live neighbours dies, as if by overpopulation.
       } else if (cell === 0 && numOfNeighbours === 3) {
-        grid[column][row].currentState = 1; // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+        grid[column][row].setState(1); // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+      } else {
+        grid[column][row].setState(grid[column][row].currentState); // Any live cell with two or three live neighbours lives on to the next generation.
       }
     }
   }
