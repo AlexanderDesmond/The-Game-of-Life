@@ -11,6 +11,8 @@ CANVAS.height = 900;
 const COLUMNS = CANVAS.width / RESOLUTION;
 const ROWS = CANVAS.height / RESOLUTION;
 
+const mode = false;
+
 // Class for holding the states of a cell
 class Cell {
   constructor() {
@@ -68,15 +70,33 @@ function render(grid) {
         RESOLUTION
       );
       //CONTEXT.fillStyle = cell.currentState ? "black" : "white";
-
       // For heatmap version
+      /*
       const normalised = cell.total / maxTotal;
       const h = (1.0 - normalised) * 240;
       CONTEXT.fillStyle = `hsl(${h}, 100%, 50%)`;
+      */
+      styleGrid(cell, maxTotal);
 
-      CONTEXT.fill();
+      //CONTEXT.fill();
     }
   }
+}
+
+// Handles styling the grid
+function styleGrid(cell, maxTotal) {
+  // Black / White version
+  if (!mode) {
+    CONTEXT.fillStyle = cell.currentState ? "black" : "white";
+  }
+  // Heatmap version
+  else if (mode) {
+    const normalised = cell.total / maxTotal;
+    const h = (1.0 - normalised) * 240;
+    CONTEXT.fillStyle = `hsl(${h}, 100%, 50%)`;
+  }
+
+  CONTEXT.fill();
 }
 
 // Build the next generation of the grid.
