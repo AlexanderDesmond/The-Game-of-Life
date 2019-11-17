@@ -11,7 +11,7 @@ CANVAS.height = 900;
 const COLUMNS = CANVAS.width / RESOLUTION;
 const ROWS = CANVAS.height / RESOLUTION;
 
-const mode = false;
+let mode = false;
 
 // Class for holding the states of a cell
 class Cell {
@@ -165,4 +165,12 @@ function nextGeneration(grid) {
   }
 
   return grid;
+}
+
+function onBlackAndWhiteClick() {
+  mode = false;
+}
+
+function onHeatmapClick() {
+  mode = true;
 }
