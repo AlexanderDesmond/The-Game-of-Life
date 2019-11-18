@@ -4,46 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <title>The Game of Life</title>
   </head>
   <body>
-    <div class="main">
-      <div class="info">
-        <h1>The Game of Life</h1>
-        <p>
-          A cellular automaton designed by the mathematician John Horton Conway
-          in 1970.
-        </p>
-        <h2>Rules</h2>
-        <ol>
-          <li>
-            Any live cell with fewer than two live neighbours dies, as if by
-            underpopulation.
-          </li>
-          <li>
-            Any live cell with two or three live neighbours lives on to the next
-            generation.
-          </li>
-          <li>
-            Any live cell with more than three live neighbours dies, as if by
-            overpopulation.
-          </li>
-          <li>
-            Any dead cell with exactly three live neighbours becomes a live
-            cell, as if by reproduction.
-          </li>
-        </ol>
-        <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"
-          >Wikipedia article</a
-        >
+    <div class="content">
+      <div class="main">
+        <div class="info">
+          <h1>The Game of Life</h1>
+          <p>
+            A cellular automaton designed by the mathematician John Horton
+            Conway in 1970.
+          </p>
+          <h2>Rules</h2>
+          <ol>
+            <li>
+              Any live cell with fewer than two live neighbours dies, as if by
+              underpopulation.
+            </li>
+            <li>
+              Any live cell with two or three live neighbours lives on to the
+              next generation.
+            </li>
+            <li>
+              Any live cell with more than three live neighbours dies, as if by
+              overpopulation.
+            </li>
+            <li>
+              Any dead cell with exactly three live neighbours becomes a live
+              cell, as if by reproduction.
+            </li>
+          </ol>
+          <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"
+            >Wikipedia article</a
+          >
+        </div>
+        <div class="buttons">
+          <button onClick="onBlackAndWhiteClick()">Black / White</button>
+          <button onClick="onHeatmapClick()">Heatmap</button>
+        </div>
       </div>
-      <div class="buttons">
-        <button onClick="onBlackAndWhiteClick()">Black / White</button>
-        <button onClick="onHeatmapClick()">Heatmap</button>
-      </div>
-    </div>
 
-    <canvas></canvas>
+      <canvas></canvas>
+    </div>
 
     <script src="index.js"></script>
   </body>
