@@ -69,16 +69,8 @@ function render(grid) {
         RESOLUTION,
         RESOLUTION
       );
-      //CONTEXT.fillStyle = cell.currentState ? "black" : "white";
-      // For heatmap version
-      /*
-      const normalised = cell.total / maxTotal;
-      const h = (1.0 - normalised) * 240;
-      CONTEXT.fillStyle = `hsl(${h}, 100%, 50%)`;
-      */
-      styleGrid(cell, maxTotal);
 
-      //CONTEXT.fill();
+      styleGrid(cell, maxTotal);
     }
   }
 }
@@ -133,18 +125,6 @@ function nextGeneration(grid) {
       }
 
       // Implement game rules:
-      /*
-      if (cell === 1 && numOfNeighbours < 2) {
-        grid[column][row].setState(0); // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
-      } else if (cell === 1 && numOfNeighbours > 3) {
-        grid[column][row].setState(0); // Any live cell with more than three live neighbours dies, as if by overpopulation.
-      } else if (cell === 0 && numOfNeighbours === 3) {
-        grid[column][row].setState(1); // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
-      } else {
-        grid[column][row].setState(grid[column][row].currentState); // Any live cell with two or three live neighbours lives on to the next generation.
-      }
-      */
-
       switch (cell) {
         case 1:
           if (numOfNeighbours < 2) {
