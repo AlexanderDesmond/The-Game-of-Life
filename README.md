@@ -2,6 +2,8 @@
 
 Implementation of Conway's _Game of Life_.
 
+Users can switch between a simple black and white version or a heatmap version which visualises activity.
+
 **Rules:**
 
 1. Any live cell with fewer than two live neighbours dies, as if by underpopulation.
