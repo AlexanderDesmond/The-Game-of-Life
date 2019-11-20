@@ -147,14 +147,6 @@ function nextGeneration(grid: Cell[][]) {
   return grid;
 }
 
-function onBlackAndWhiteClick() {
-  mode = false;
-}
-
-function onHeatmapClick() {
-  mode = true;
-}
-
 function onModeChange() {
   mode = !mode;
 }
