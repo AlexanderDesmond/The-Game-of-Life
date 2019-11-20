@@ -1,15 +1,15 @@
 // Initialise the canvas
-const CANVAS = document.querySelector("canvas");
-const CONTEXT = CANVAS.getContext("2d");
+const CANVAS: HTMLCanvasElement = document.querySelector("canvas");
+const CONTEXT: CanvasRenderingContext2D = CANVAS.getContext("2d");
 
 // Set the resolution and dimensions of the canvas.
-const RESOLUTION = 5;
+const RESOLUTION: number = 5;
 CANVAS.width = 900;
 CANVAS.height = 900;
 
 // Set the number of rows and columns
-const COLUMNS = CANVAS.width / RESOLUTION;
-const ROWS = CANVAS.height / RESOLUTION;
+const COLUMNS: number = CANVAS.width / RESOLUTION;
+const ROWS: number = CANVAS.height / RESOLUTION;
 
 let mode: boolean = false;
 
@@ -28,7 +28,7 @@ class Cell {
   }
 }
 
-let grid = buildGrid();
+let grid: Cell[][] = buildGrid();
 
 requestAnimationFrame(update);
 
@@ -48,10 +48,10 @@ function buildGrid() {
 // Render the grid on the canvas.
 function render(grid: Cell[][]) {
   // Find and store the
-  let maxTotal = 0;
+  let maxTotal: number = 0;
   for (let column = 0; column < grid.length; column++) {
     for (let row = 0; row < grid[column].length; row++) {
-      const cell = grid[column][row];
+      const cell: Cell = grid[column][row];
 
       if (cell.total > maxTotal) {
         maxTotal = cell.total;
@@ -61,7 +61,7 @@ function render(grid: Cell[][]) {
 
   for (let column = 0; column < grid.length; column++) {
     for (let row = 0; row < grid[column].length; row++) {
-      const cell = grid[column][row];
+      const cell: Cell = grid[column][row];
 
       CONTEXT.beginPath();
       CONTEXT.rect(
@@ -84,8 +84,8 @@ function styleGrid(cell: Cell, maxTotal: number) {
   }
   // Heatmap version
   else if (mode) {
-    const normalised = cell.total / maxTotal;
-    const h = (1.0 - normalised) * 240;
+    const normalised: number = cell.total / maxTotal;
+    const h: number = (1.0 - normalised) * 240;
     CONTEXT.fillStyle = `hsl(${h}, 100%, 50%)`;
   }
 
@@ -102,7 +102,7 @@ function nextGeneration(grid: Cell[][]) {
     for (let row = 0; row < currentGen[column].length; row++) {
       const cell = currentGen[column][row];
 
-      let numOfNeighbours = 0;
+      let numOfNeighbours: number = 0;
       // Iterate through the neighbours of the current cell.
       for (let i = -1; i < 2; i++) {
         for (let j = -1; j < 2; j++) {
@@ -111,12 +111,12 @@ function nextGeneration(grid: Cell[][]) {
             continue;
           }
 
-          const x_cell = column + i;
-          const y_cell = row + j;
+          const x_cell: number = column + i;
+          const y_cell: number = row + j;
 
           // Check to ensure the cell is actually in the grid.
           if (x_cell >= 0 && y_cell >= 0 && x_cell < COLUMNS && y_cell < ROWS) {
-            const currentNeighbour = currentGen[column + i][row + j];
+            const currentNeighbour: number = currentGen[column + i][row + j];
 
             // Store the number of neighbours
             numOfNeighbours += currentNeighbour;
