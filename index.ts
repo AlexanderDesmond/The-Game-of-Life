@@ -46,7 +46,7 @@ function buildGrid() {
 }
 
 // Render the grid on the canvas.
-function render(grid) {
+function render(grid: Cell[][]) {
   // Find and store the
   let maxTotal = 0;
   for (let column = 0; column < grid.length; column++) {
@@ -77,7 +77,7 @@ function render(grid) {
 }
 
 // Handles styling the grid
-function styleGrid(cell, maxTotal) {
+function styleGrid(cell: Cell, maxTotal: number) {
   // Black / White version
   if (!mode) {
     CONTEXT.fillStyle = cell.currentState ? "black" : "white";
@@ -93,7 +93,7 @@ function styleGrid(cell, maxTotal) {
 }
 
 // Build the next generation of the grid.
-function nextGeneration(grid) {
+function nextGeneration(grid: Cell[][]) {
   // Create a copy of the grid
   const currentGen = grid.map(arr => arr.map(cell => cell.currentState));
 
