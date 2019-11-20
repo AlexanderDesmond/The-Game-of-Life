@@ -11,16 +11,18 @@ CANVAS.height = 900;
 const COLUMNS = CANVAS.width / RESOLUTION;
 const ROWS = CANVAS.height / RESOLUTION;
 
-let mode = false;
+let mode: boolean = false;
 
 // Class for holding the states of a cell
 class Cell {
+  currentState: number;
+  total: number;
   constructor() {
     this.currentState = Math.floor(Math.random() * 2);
     this.total = 0;
   }
 
-  setState(state) {
+  setState(state: number) {
     this.currentState = state;
     this.total += state;
   }
@@ -38,7 +40,6 @@ function update() {
 
 // Return a two-dimensional array to hold the grid.
 function buildGrid() {
-  //return new Array(COLUMNS).fill(null).map(() => new Array(ROWS).fill(0));
   return new Array(COLUMNS)
     .fill(null)
     .map(() => new Array(ROWS).fill(null).map(() => new Cell()));
@@ -94,7 +95,6 @@ function styleGrid(cell, maxTotal) {
 // Build the next generation of the grid.
 function nextGeneration(grid) {
   // Create a copy of the grid
-  //const nextGen = grid.map(arr => [...arr]);
   const currentGen = grid.map(arr => arr.map(cell => cell.currentState));
 
   // Iterate through every cell in the grid.
@@ -153,4 +153,8 @@ function onBlackAndWhiteClick() {
 
 function onHeatmapClick() {
   mode = true;
+}
+
+function onModeChange() {
+  mode = !mode;
 }
